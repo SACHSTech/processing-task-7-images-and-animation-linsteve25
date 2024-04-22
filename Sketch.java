@@ -16,7 +16,7 @@ public class Sketch extends PApplet {
   float fltCircleY = 140;
 
   // set speed of circle
-  float fltCircleSpeedX = 2;
+  float fltCircleSpeedX = 3;
   float fltCircleSpeedY = 1;
 
   // set speed of car
@@ -68,7 +68,6 @@ public class Sketch extends PApplet {
     // draw the moving circle
     circle(fltCircleX, fltCircleY, 50);
     fltCircleX += fltCircleSpeedX;
-    fltCircleY += fltCircleSpeedY;
     
     // set restrictions for the circle
     if (fltCircleX < 10 || fltCircleX > width - 10) {
