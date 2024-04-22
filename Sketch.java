@@ -1,36 +1,83 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Sketch extends PApplet {
-	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
-  public void settings() {
-	// put your size call here
-    size(400, 400);
-  }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
-  public void setup() {
-    background(210, 255, 173);
-  }
+	// declare a global image variable
+	PImage imgCar; 
+  PImage imgRaceTrack;
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
-  public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
-
-    stroke(255);
-    line(50, 125, 70, 50);  
-  }
+  // set the starting coordinates for the car;
+  float fltCarX = 100;
+  float fltCarY = 150;
   
-  // define other methods down here.
+  // set the starting x and y coordinates for the circle
+  float fltCircleX = 120;
+  float fltCircleY = 140;
+
+  // set speed of circle
+  float fltCircleSpeedX = 2;
+  float fltCircleSpeedY = 1;
+
+  // set speed of car
+  float fltCarSpeedX = 2;
+  float fltCarSpeedY = 2;
+  
+  // defind radius and angle for car travel path
+  float fltRadius;
+  int intAngle = 0;
+
+  public void settings() {
+
+	// size call
+    size(400, 400);
+
+  }
+
+  public void setup() {
+
+    // load background into the program
+    imgRaceTrack = loadImage("RaceTrack.jpeg");
+    // resize background
+    imgRaceTrack.resize(width, height);
+
+    // load the car image into the program
+    imgCar = loadImage("Car.png");
+
+    // resize car
+    imgCar.resize(imgCar.width/4, imgCar.height/4);
+    fltRadius = 400/2 - Math.max(imgCar.width/2, imgCar.height/2);
+  }
+
+  public void draw() {
+
+    // draw background
+    background(imgRaceTrack);
+ 
+    // draw the car moving in a circle
+    float y = sin((float)Math.toRadians(intAngle)) * fltRadius + fltRadius;
+    float x = cos((float)Math.toRadians(intAngle)) * fltRadius + fltRadius;
+
+    image(imgCar, x, y);
+
+    intAngle += 3;
+    if (intAngle > 360) {
+      intAngle = 0;
+    }
+
+    // draw the moving circle
+    circle(fltCircleX, fltCircleY, 50);
+    fltCircleX += fltCircleSpeedX;
+    fltCircleY += fltCircleSpeedY;
+    
+    // set restrictions for the circle
+    if (fltCircleX < 10 || fltCircleX > width - 10) {
+      fltCircleSpeedX *= -1;
+    }
+
+    if (fltCircleSpeedY < 10 || fltCircleSpeedY > height - 10) {
+      fltCircleSpeedY *= -1;
+    }
+
+  }
 }
